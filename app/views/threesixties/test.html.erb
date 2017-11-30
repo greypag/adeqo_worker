@@ -1,0 +1,448 @@
+
+<%
+
+# @click = @db2[:clicks].find()
+# @db.close()
+# 
+# concat @click.count.to_i 
+
+# test = CGI.unescape(" http://t.adeqo.com/click?company_id=1&network_id=33&campaign_id={planid}&adgroup_id={groupid}&ad_id={creativeid}&keyword_id=2891325845&tv=v1&durl=http%3A%2F%2Fu.ctrip.com%2Funion%2FCtripRedirect.aspx%3Ftypeid%3D2%26sid%3D153487%26allianceid%3D5376%26jumpurl%3Dhttp%3A%2F%2Fhotels.ctrip.com%2FDomestic%2FShowHotelList.aspx%3Fcity%3D601%26sl%3D2468462%26relatedate%3D2") 
+# concat test 
+# concat "<br /><br />".html_safe
+# concat "http://hotels.ctrip.com/Domestic/ShowHotelList.aspx?city=601&sl=2468462&relatedate=2"
+concat "<br /><br />".html_safe
+
+
+# (1..100).each do |i|
+	# concat "/usr/bin/wget --timeout=28800 -O - http://127.0.0.1/threesixties/report_upper?day="+i.to_s
+	# concat "<br />".html_safe
+# 	  
+# end
+
+# @db[:network].find('type' => 'sogou').update_many('$set'=> { 'report' => 0,'avg_pos' => 0,'avg_pos_upper' => 0 })
+# concat "<br />sadsad<br />".html_safe
+
+  # exact_file_path = "/home/bmg/worker/public/bulk/download/f720db603d9cb0fcd6eec144cf38e13ebf11.xlsx"
+  # if File.exist?(exact_file_path)
+    	# concat "yes"
+  # else
+      	# concat "nonono"
+  # end
+
+
+# p = Axlsx::Package.new
+# wb = p.workbook
+# 
+# date = {}
+# all_id = []
+# conversion_id = []
+# 
+# tmp_file_path = "/home/bmg/worker/public/order1.xlsx"
+# 
+# xlsx = Roo::Spreadsheet.open(tmp_file_path, extension: :xlsx)
+#                     
+# xlsx.each_with_index do |csv, csv_index|
+	# if csv_index.to_i != 0
+		# # concat csv[1]
+		# # concat "<br /><br />".html_safe
+		# all_id << csv[1].to_s
+		# date[csv[1].to_s] = csv[0].to_s
+	# end
+# end
+# 
+# 
+# concat all_id.count.to_i
+# concat "<br /><br />".html_safe
+# 
+# @all_conversion = @db2["conversion"].find({ 'order_id' => { "$in" => all_id}})
+# concat @all_conversion.count.to_i
+# concat "<br /><br />".html_safe
+# concat "<br /><br />".html_safe
+# 
+# if @all_conversion.count.to_i > 0
+	# @all_conversion.each do |all_conversion_d|
+		# conversion_id << all_conversion_d["order_id"].to_s
+		# all_id.delete(all_conversion_d["order_id"].to_s)
+	# end
+# end
+# 
+# concat all_id.count.to_i
+# concat "<br /><br />".html_safe
+# concat all_id
+# concat "<br /><br />".html_safe
+# concat "<br /><br />".html_safe
+# 
+# wb.add_worksheet(:name => "Basic Worksheet") do |sheet|
+	# all_id.each_with_index do |csv, csv_index|
+		# temp_arr = []
+# 		
+		# temp_arr << date[csv.to_s]
+		# temp_arr << csv
+		# sheet.add_row temp_arr
+	# end
+# end
+# 
+# create_excel_path = '/home/bmg/worker/public/order_list.xlsx'
+# p.serialize(create_excel_path)
+
+
+# db_name = "keyword_sogou_7"
+#                 
+# text = ".adeqo."
+# @url_keyword_count = @db[db_name].find({:mobile_visit_url => {'$regex' => '^((?!'+text+').)*$', '$options' => 'i'}, 'mobile_visit_url' => { '$ne' => "" }})
+# @db.close
+# 
+# concat "sad1"
+# concat @url_keyword_count.count.to_i
+# concat @url_keyword_count.first
+# concat "<br /><br /><hr />".html_safe
+
+# visiturl = "http://t.adeqo.com/click?company_id=1&network_id=18"
+# visiturl = visiturl + "&campaign_id={planid}&adgroup_id={groupid}&ad_id={creativeid}&keyword_id={wordid}"
+# visiturl = visiturl + "&cookie=30"
+# visiturl = visiturl + "&device=pc"
+# visiturl = visiturl + "&tv=v1&durl="+CGI.escape("http://m.ctrip.com/")
+# 
+# concat visiturl
+# @db[:network].find('type' => 'sogou').update_many('$set'=> { 'file_update_1' => 2 })
+
+@current_network = @db[:network].find({ '$or' => [ {'file_update_1' => 3},{'file_update_2' => 3},{'file_update_3' => 3},{'file_update_4' => 3} ]})
+@db.close()
+
+if @current_network.count.to_i > 0
+	@current_network.each do |current_network_d|
+		concat current_network_d
+		concat "<br /><br />".html_safe
+	end
+end
+
+concat @current_network.count.to_i
+concat "<br /><br /><hr />".html_safe
+
+# @user_network_array = [32,93]
+# @channel_array = ["360","sogou"]
+# @status_array = [11]
+# # 
+# test_hash = {}
+# # test_hash["network_id"] = { '$in' => @user_network_array }
+# # test_hash["network_type"] = { '$in' => @channel_array }
+# # test_hash["status"] = { '$in' => @status_array }
+# 
+# qq = "app"
+# test_hash["campaign_name"] = {'$regex' => 'app', '$options' => 'i'}
+# # 
+# @all_campaign_count = @db["all_campaign"].find(test_hash)
+# @db.close
+# 
+# concat "sad".html_safe
+# # # @test = @db2["conversion"].find('order_id' => { '$ne' => "", '$ne' => 0 })
+# # # @db2.close
+# # # 
+# concat @all_campaign_count.count.to_i
+# 
+# if @all_campaign_count.count.to_i > 0
+	# @all_campaign_count.each do |all_campaign_count_d|
+		# concat all_campaign_count_d
+		# concat "<br /><br />".html_safe
+	# end
+# end
+# concat "sad".html_safe
+# concat "<br /><br /><hr />".html_safe
+
+# @current_network = @db2[:clicks].find()
+
+
+
+# total = @db2["clicks"].find()
+# concat total.count.to_i
+# concat "<br /><br />".html_safe
+# 
+# total = @db2["events"].find()
+# concat total.count.to_i
+# concat "<br /><br />".html_safe
+
+
+# total = @db2["conversion"].find()
+# concat total.count.to_i
+# concat "<br /><br />".html_safe
+
+# @one_hour_ago = Time.now - 1.hours
+# 
+# 
+# @one_hour_ago = @one_hour_ago.in_time_zone('Beijing').strftime("%Y-%m-%d %H:%M:%S %Z")
+
+# total = @db2["clicks"].find('date' => { '$gte' => "2016-05-23 15:00:00 CST", '$lt' => '2016-05-23 16:00:00 CST' })
+# 
+# concat @one_hour_ago
+# concat "<br /><br />".html_safe
+# concat total.count.to_i
+# concat "<br /><br />".html_safe
+# concat total.first
+# concat "<br /><br /><hr />".html_safe
+# 
+# 
+# @current_network = @db3[:report_account_360].find()
+# # 
+# concat @current_network.count.to_i
+# concat "<br /><br /><hr />".html_safe
+# @current_network = @db3[:bulkjob].find()
+# 
+# concat @current_network.count.to_i
+# concat "<br /><br /><hr />".html_safe
+
+# concat "sad<br /><br /><hr />".html_safe
+# 
+# @db2[:clicks].indexes.create_one(ad_id: Mongo::Index::ASCENDING)
+# @db2[:clicks].indexes.create_one(adgroup_id: Mongo::Index::ASCENDING)
+# @db2[:clicks].indexes.create_one(campaign_id: Mongo::Index::ASCENDING)
+# @db2[:clicks].indexes.create_one(date: Mongo::Index::ASCENDING)
+# @db2[:clicks].indexes.create_one(destination_url: Mongo::Index::ASCENDING)
+# @db2[:clicks].indexes.create_one(id: Mongo::Index::ASCENDING)
+# @db2[:clicks].indexes.create_one(keyword_id: Mongo::Index::ASCENDING)
+# @db2[:clicks].indexes.create_one(network_id: Mongo::Index::ASCENDING)
+# @db2[:clicks].indexes.create_one(other_parameters: Mongo::Index::ASCENDING)
+# @db2[:clicks].indexes.create_one(random_number: Mongo::Index::ASCENDING)
+# @db2[:clicks].indexes.create_one(session_id: Mongo::Index::ASCENDING)
+# @db2[:clicks].indexes.create_one(company_id: Mongo::Index::ASCENDING)
+# 
+# @db2[:events].indexes.create_one(check_status: Mongo::Index::ASCENDING)
+# @db2[:events].indexes.create_one(company_id: Mongo::Index::ASCENDING)
+# @db2[:events].indexes.create_one(date: Mongo::Index::ASCENDING)
+# @db2[:events].indexes.create_one(id: Mongo::Index::ASCENDING)
+# @db2[:events].indexes.create_one(other_param: Mongo::Index::ASCENDING)
+# @db2[:events].indexes.create_one(random_number: Mongo::Index::ASCENDING)
+# @db2[:events].indexes.create_one(session_id: Mongo::Index::ASCENDING)
+
+# @db[:bulkjob].indexes.create_one(network_id: Mongo::Index::ASCENDING)
+# @db2[:bulkjob].indexes.create_one(network_type: Mongo::Index::ASCENDING)
+# @db2[:bulkjob].indexes.create_one(upload_type: Mongo::Index::ASCENDING)
+# @db2[:bulkjob].indexes.create_one(status: Mongo::Index::ASCENDING)
+# @db2[:bulkjob].indexes.create_one(worker: Mongo::Index::ASCENDING)
+# @db2[:bulkjob].indexes.create_one(request_date: Mongo::Index::ASCENDING)
+# @db2[:bulkjob].indexes.create_one(last_update: Mongo::Index::ASCENDING)
+# @db2[:bulkjob].indexes.create_one(bulk_type: Mongo::Index::ASCENDING)
+# @db2[:bulkjob].indexes.create_one(file_id: Mongo::Index::ASCENDING)
+
+# @db2 = Mongo::Client.new([ '10.204.180.29:27017' ], :database => 'adeqo', :connect => :direct , :timeout => 1, :max_pool_size => 10, :pool_timeout => 2, :socket_timeout => 1, :connect_timeout => 1)
+# @db2.close
+
+
+ 
+# @db2[:conversion].find('update_revenue_status' => 1).update_many({ '$set' => {
+                                                                                  # update_revenue_status: nil
+                                                                             # }
+                                                                  # })
+# @db2[:clicks].find('network_id' => 0).delete_many.limit(1)  
+# @conversion = @db2[:conversion].find()
+
+
+# @event = @db2[:events].find('date' => {'$gt' => '2016-01-21 00:00:00 CST', '$lt' => '2016-01-22 00:00:00 CST'})
+# @db2.close
+#  
+# concat @event.count.to_i
+# concat "<br /><br /><br />".html_safe
+# if @event.count.to_i > 0
+	# @event.each do |event_d|
+		# concat event_d
+		# concat "<br /><br />".html_safe
+	# end
+# end
+
+
+# @db2[:conversion].indexes.create_one(order_id: Mongo::Index::ASCENDING)
+# @db2[:events].indexes.create_one(check_status: Mongo::Index::ASCENDING)
+# @db[:sogou_report_campaign].indexes.create_one(network_id: Mongo::Index::ASCENDING)
+
+# cookies[:test] = {
+   # :value => SecureRandom.uuid,
+   # :expires => 1.minutes.from_now,
+   # :domain => 'adeqo.com'
+# }
+
+
+concat "<br /><br /><br />".html_safe
+# 
+# 
+# @network = @db[:network].find()
+# 
+# if @network.count.to_i > 0
+	# @network.each do |network_d|
+		# # db_name = "adgroup_sogou_"+network_d['id'].to_s
+		# # @db3[db_name].drop()
+# # 		
+		# # db_name = "ad_sogou_"+network_d['id'].to_s
+		# # @db3[db_name].drop()
+# 		
+		# # db_name = "keyword_sogou_"+network_d['id'].to_s
+		# # @db3[db_name].drop()
+# 		
+		# # db_name = "adgroup_360_"+network_d['id'].to_s
+		# # @db3[db_name].drop()
+# # 		
+		# # db_name = "ad_360_"+network_d['id'].to_s
+		# # @db3[db_name].drop()
+# 		
+		# # db_name = "keyword_360_"+network_d['id'].to_s
+		# # @db3[db_name].drop()
+	# end
+# end
+    
+# test = "http://t.adeqo.com/click?company_id=1&network_id=19&campaign_id={planid}&adgroup_id={groupid}&ad_id={creativeid}&keyword_id=761390962&tv=v1&durl=http%3A%2F%2Fu.ctrip.com%2Funion%2FCtripRedirect.aspx%3Ftypeid%3D2%26sid%3D153501%26allianceid%3D5376%26ouid%3Dpinpaigonglue%26jumpurl%3Dhttp%3A%2F%2Fvacations.ctrip.com%2F"
+# 
+# concat test.html_safe 
+# concat "<br /><br />".html_safe
+# concat CGI.unescape(test).html_safe
+# concat "<br /><br /><br />".html_safe
+
+# concat "<br /><br />".html_safe           
+# 
+# @account_record = @db["report_account_360"].find()
+# concat @account_record.count.to_i
+# concat "<br /><br />".html_safe
+# 
+# @account_record = @db["report_campaign_360"].find()
+# concat @account_record.count.to_i
+# concat "<br /><br />".html_safe
+# 
+# @account_record = @db["report_adgroup_360"].find()
+# concat @account_record.count.to_i
+# concat "<br /><br />".html_safe
+# 
+# @account_record = @db["report_ad_360"].find()
+# concat @account_record.count.to_i
+# concat "<br /><br />".html_safe
+# 
+# @account_record = @db["report_keyword_360"].find()
+# concat @account_record.count.to_i
+# concat "<br /><br />".html_safe
+
+
+# @network = @db[:network].find(id: job["network_id"].to_i)
+# @db.close
+# 
+# # msg = []
+# 
+# if @network.count.to_i > 0
+    # @network.each do |network_d|
+        # @username = network_d["username"]
+        # @password = network_d["password"]
+        # @apitoken = network_d["api_token"]
+        # @apisecret = network_d["api_secret"]
+#                              
+        # login_info = threesixty_api_login(@username,@password,@apitoken,@apisecret)
+        # @refresh_token = login_info["account_clientLogin_response"]["accessToken"]
+#         
+        # if !@refresh_token.nil?
+            # @update_res = threesixty_api( network_d["api_token"].to_s, @refresh_token, "account", "getInfo")
+            # data = {:message => @update_res, :status => "false"}
+            # return render :json => data, :status => :ok
+        # end
+    # end
+	
+
+
+# 
+# @user = @db2[:clicks].find()
+# concat @user.count.to_i
+# concat "<br /><br /><br /><br />".html_safe
+
+
+
+# def threesixty_api( api_key, access_token, service, method, params = {})
+    # url = "https://api.e.360.cn/2.0/#{service}/#{method}"
+      # response = HTTParty.post(url,
+            # timeout: 300, 
+            # body: params,
+            # headers: {
+                        # 'apiKey' => api_key, 
+                        # 'accessToken' => access_token, 
+                        # 'serveToken' => Time.now.to_i.to_s  
+                      # })
+#       
+      # # @logger.info response.headers["quotaremain"]              
+      # return response.parsed_response
+  # end
+#   
+# def threesixty_api_login(username,password,api_key,api_secret)
+	    # cipher_aes = OpenSSL::Cipher::AES.new(128, :CBC)
+	    # cipher_aes.encrypt
+	    # cipher_aes.key = api_secret[0,16]
+	    # cipher_aes.iv = api_secret[16,16]
+	    # encrypted = (cipher_aes.update(Digest::MD5.hexdigest(password)) + cipher_aes.final).unpack('H*').join
+	    # url = "https://api.e.360.cn/account/clientLogin"
+	    # response = HTTParty.post(url,
+	        # :timeout => 300,
+	        # :body => {
+	        # :username => username,
+	        # :passwd => encrypted[0,64]
+	        # },
+	        # :headers => {'apiKey' => api_key }
+	    # )
+# 	    
+	    # return response.parsed_response
+# end
+# 
+@user = @db[:network].find('type' => '360')
+@db.close()
+
+@user.each do |user|
+	
+	# if user['id'].to_i == 18
+		# @username = user["username"]
+		# @password = user["password"]
+		# @apitoken = user["api_token"]
+		# @apisecret = user["api_secret"]
+# 		                     
+		# login_info = threesixty_api_login(@username,@password,@apitoken,@apisecret)
+		# @refresh_token = login_info["account_clientLogin_response"]["accessToken"]
+# 		
+		# @update_res = threesixty_api( user["api_token"].to_s, @refresh_token, "account", "getCampaignIdList")
+       	# @affectedRecords = @update_res["account_getCampaignIdList_response"]["quotaCost"]
+#                                 
+	    # # @logger.info @affectedRecords
+	# end
+	
+	concat user
+	concat "<br /><br />".html_safe
+	
+	
+	@camp = @db["all_campaign"].find(network_id: user["id"].to_i)
+	@db.close()
+	concat @camp.count.to_i 
+	concat "<br /><br />".html_safe
+	
+	db_name = "adgroup_360_"+user['id'].to_s
+	@adgroup = @threesixty_db[db_name].find()
+	@threesixty_db.close()
+	
+	concat @adgroup.count.to_i 
+	concat "<br /><br />".html_safe
+	
+	db_name = "ad_360_"+user['id'].to_s
+	@ad = @threesixty_db[db_name].find()
+	@threesixty_db.close()
+	
+	concat @ad.count.to_i 
+	concat "<br /><br />".html_safe
+	
+	db_name = "keyword_360_"+user['id'].to_s
+	@keyword = @threesixty_db[db_name].find()
+	@threesixty_db.close()
+	
+	concat @keyword.count.to_i 
+	concat "<br /><br />".html_safe
+	
+	
+	
+	
+	
+	
+	concat "<br /><br />".html_safe
+	concat "<hr /><hr />".html_safe
+end
+
+concat "<hr /><hr />".html_safe
+
+
+
+%>

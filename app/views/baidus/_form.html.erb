@@ -1,0 +1,17 @@
+<%= form_for(@baidu) do |f| %>
+  <% if @baidu.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@baidu.errors.count, "error") %> prohibited this baidu from being saved:</h2>
+
+      <ul>
+      <% @baidu.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,127 @@
+<h1>360 camp</h1>
+
+<%=@file%>
+
+<%
+# CSV.foreach(@file, :encoding => 'GB18030').each_with_index do |csv, index|	
+# # 	
+	# if index.to_i < 1 
+# # 		
+		# concat csv
+# 		
+#  		
+#  		
+		# if csv[9].nil? && csv[11].nil? && csv[13].nil? && csv[16].nil? && csv[20].nil? && csv[22].nil?
+			# concat "campaign"
+# 			
+			# @db[:campaign_360].insert_one({ 
+	                                        # network_id: doc["id"].to_i, 
+	                                        # account_id: csv[1].to_i,
+	                                        # account_name: csv[2].to_i,
+	                                        # campaign_id: csv[0].to_i,
+	                                        # campaign_name: csv[3].to_s, 
+	                                        # budget: csv[4].to_f, 
+	                                        # regions: csv[26].to_s, 
+	                                        # schedule: csv[27].to_s,
+	                                        # start_date: csv[2].to_s,
+	                                        # end_date: csv[29].to_s,
+	                                        # status: csv[6].to_s,
+	                                        # sys_status: csv[7].to_s,
+	                                        # extend_ad_type: csv[66].to_i,
+	                                        # mobile_price_rate: csv[70].to_f,
+	                                        # update_date: csv[31],                                            
+	                                        # create_date: csv[30] 
+                                        # })
+# 			
+# 			
+		# end
+#  		
+#  		
+		# if !csv[9].nil? && !csv[11].nil? && csv[13].nil? && csv[16].nil? && csv[20].nil? && csv[22].nil?
+			# concat "adgroup"
+# 			
+# 			
+			# @db[:adgroup_360].insert_one({ 
+                                          # network_id: doc["id"].to_i,
+                                          # account_id: csv[1].to_i,
+                                          # account_name: csv[2].to_s,
+                                          # campaign_id: @campaign_id.to_i,
+                                          # campaign_name: csv[3].to_s,
+                                          # adgroup_id: csv[0].to_i,
+                                          # adgroup_name: csv[9].to_s,
+                                          # price: csv[10].to_f,
+                                          # negative_words: csv[19].to_s,
+                                          # status: csv[11].to_s,
+                                          # sys_status: csv[12].to_s,
+                                          # update_date: csv[31],                                            
+                                          # create_date: csv[30] 
+                                          # })
+# 			
+		# end
+#  		
+#  		
+#  		
+		# if !csv[20].nil? && csv[13].nil? && csv[16].nil?
+			# concat "ad"
+# 			
+# 			
+			# @db[:ad_360].insert_one({ 
+                                          # network_id: doc["id"].to_i,
+                                          # account_id: csv[1].to_i,
+                                          # account_name: csv[2].to_s,
+                                          # campaign_id: @campaign_id.to_i,
+                                          # campaign_name: csv[3].to_s,
+                                          # adgroup_id: @adgroup_id.to_i,
+                                          # ad_id: csv[0].to_i,
+                                          # title: csv[20].to_s, 
+                                          # description: csv[21].to_s, 
+                                          # status: csv[22].to_s,
+                                          # sys_status: csv[23].to_s,
+                                          # show_url: csv[24].to_s,
+                                          # visit_url: csv[25].to_s,
+                                          # mobile_show_url: csv[68].to_s,
+                                          # mobile_visit_url: csv[69].to_s,
+                                          # extend_ad_type: csv[66].to_i,
+                                          # update_date: csv[31],                                            
+                                          # create_date: csv[30] 
+                                          # })
+# 			
+#  			
+		# end
+#  		
+#  		
+#  		
+		# if !csv[13].nil? && csv[20].nil? && csv[22].nil?
+			# concat "keyword"
+#  			
+ 			# @db[:keyword_360].insert_one({ 
+                                        # network_id: doc["id"].to_i,
+                                        # account_id: csv[1].to_i,
+                                        # account_name: csv[2].to_i,
+                                        # campaign_id: @campaign_id.to_i,
+                                        # campaign_name: csv[3].to_s,
+                                        # adgroup_id: @adgroup_id.to_i,
+                                        # keyword_id: csv[0].to_i,
+                                        # keyword: csv[13].to_s,
+                                        # price: csv[15].to_f, 
+                                        # status: csv[16].to_s,
+                                        # sys_status: csv[17].to_s,
+                                        # match_type: csv[14].to_i,
+                                        # visit_url: csv[25].to_s,
+                                        # mobile_visit_url: csv[67].to_s,
+                                        # cpc_quality: csv[32].to_f,
+                                        # extend_ad_type: csv[66].to_i,
+                                        # update_date: csv[31],                                            
+                                        # create_date: csv[30] 
+                                        # })
+#  			
+		# end
+# 		
+		# concat "<hr>".html_safe
+# 		
+	# else
+		# break	
+	# end
+# end
+%>
+ 

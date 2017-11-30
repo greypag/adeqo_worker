@@ -1,0 +1,2 @@
+module SogousHelper
+end

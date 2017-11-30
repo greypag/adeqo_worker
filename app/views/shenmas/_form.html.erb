@@ -1,0 +1,17 @@
+<%= form_for(@shenma) do |f| %>
+  <% if @shenma.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shenma.errors.count, "error") %> prohibited this shenma from being saved:</h2>
+
+      <ul>
+      <% @shenma.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

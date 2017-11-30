@@ -1,0 +1,444 @@
+<!-- <img style="display:none;" alt="" src="http://china.adeqo.com:81/event?companyid=1&event_type=confirmation&order_id=9527&revenue=1&category=test&name=name&price=2&sku=sku&promotecode=lol&quantity=1&custom_field=custom_value" width="1" height="1">	 -->
+		      			
+
+<%
+
+
+# @db[:network].indexes.create_one(locked: Mongo::Index::ASCENDING)
+# @db.close
+
+# @db[:network].find().update_many('$set'=> { 'locked' => 0})
+# @db.close()
+
+
+concat request.cookies
+concat "<br /><br /><hr />".html_safe
+
+# cookies.delete :cookie_id, :domain => 'adeqo.com'
+# cookies.delete :user_id, :domain => 'adeqo.com'
+
+# @all = @db3[:sogou_report_campaign].find({ "$and" => [{:report_date => { '$gte' => "2017-07-01 00:00:00" }}, {:report_date => { '$lt' => "2017-10-01 00:00:00" }} ] })
+# @db2.close
+
+
+
+# @all = @db2[:test_clicks].find({ "$and" => [{:random_number => { '$eq' => nil }} ] })
+# @db2.close
+
+
+
+network_id_array = []
+network_name_hash = {}
+
+keyword_id_hash = {}
+keyword_name_hash = {}
+
+
+@all = @db2[:conversion].find({ "$and" => [{:date => { '$gte' => "2017-10-16 00:00:00" }}, {:date => { '$lt' => "2017-10-17 00:00:00" }} ] })
+@db2.close
+# # # 
+concat @all.count.to_i
+concat "<br /><br /><hr />".html_safe
+concat @all.first
+# # # 
+# # # 
+# # # 
+if @all.count.to_i > 0
+	@all.each do |all_d|
+		network_id_array << all_d["network_id"]
+		
+		if keyword_id_hash[all_d["network_id"].to_s].nil?
+			keyword_id_hash[all_d["network_id"].to_s] = []
+		end
+		
+		keyword_id_hash[all_d["network_id"].to_s] << all_d["keyword_id"]
+	end
+	
+	network_id_array = network_id_array.uniq
+	
+	@network = @db[:network].find('id' => { "$in" => network_id_array})
+	@db.close
+# 	
+	if @network.count.to_i > 0
+		@network.each do |network_d|
+			network_name_hash[network_d["id"].to_s] = network_d["name"]
+		end
+	end
+# 	
+	keyword_id_hash.each do |keyword_id_key, keyword_id_value|
+		
+		
+		
+		if keyword_id_value.count.to_i > 0
+			db_name = "keyword_360_"+keyword_id_key.to_s
+			
+			@keyword = @threesixty_db[db_name].find('keyword_id' => { "$in" => keyword_id_value})
+			@db2.close
+			
+			if @keyword.count.to_i > 0
+				@keyword.each do |keyword_d|
+					keyword_name_hash[keyword_d["keyword_id"].to_s] = keyword_d["keyword"] 
+				end
+			end
+# 			
+		end
+	end
+	
+end
+
+
+# concat keyword_name_hash
+
+
+head = ["\xEF\xBB\xBForder_id","\xEF\xBB\xBFrevenue ","\xEF\xBB\xBFnetwork", "\xEF\xBB\xBFnetwork_type", "\xEF\xBB\xBFkeyword_id", "\xEF\xBB\xBFbusiness_type", "\xEF\xBB\xBFdate"]
+
+
+# # # 
+if @all.count.to_i > 0
+	csv_array = []
+	
+	@all.each do |all_d|
+		tmp_csv_array = [all_d["order_id"],all_d["revenue"],network_name_hash[all_d["network_id"].to_s],all_d["network_type"],keyword_name_hash[all_d["keyword_id"].to_s],all_d["business_type"],all_d["date"]]
+		csv_array << tmp_csv_array
+	end
+# 
+# 
+# 
+	 p = Axlsx::Package.new
+	 wb = p.workbook
+	  
+	 wb.add_worksheet(:name => "Basic Worksheet") do |sheet|
+	    
+	     sheet.add_row head
+	     
+	     csv_array.each_with_index do |csv, csv_index|
+	        sheet.add_row csv
+	     end
+	 end
+	 
+	  name = "16th Oct Conversion"
+	
+	  create_excel_path = '/datadrive/'+name+'.xlsx'
+	  p.serialize(create_excel_path)
+# 
+end
+
+
+
+ 
+ 
+
+
+
+# @db2[:conversion].indexes.create_one(business_type: Mongo::Index::ASCENDING)
+# @db2.close
+# @db2[:clicks].indexes.create_one(cookie_id: Mongo::Index::ASCENDING)
+# @db2.close
+# 
+# @db2[:clicks].indexes.create_one(check_time_status: Mongo::Index::ASCENDING)
+# @db2.close
+# @db2[:clicks].indexes.create_one(check_event_status: Mongo::Index::ASCENDING)
+# @db2.close
+# @db2[:clicks].indexes.create_one(check_page_count_status: Mongo::Index::ASCENDING)
+# @db2.close
+# @db2[:clicks].indexes.create_one(check_url_status: Mongo::Index::ASCENDING)
+# @db2.close
+# @db2[:clicks].indexes.create_one(check_confirmation_status: Mongo::Index::ASCENDING)
+# @db2.close
+
+
+ 
+
+
+# @db2[:conversion].indexes.create_one(promotecode: Mongo::Index::ASCENDING)
+# @db2.close
+# @db2[:conversion].indexes.create_one(confirmation_category: Mongo::Index::ASCENDING)
+# @db2.close
+# @db2[:conversion].indexes.create_one(price: Mongo::Index::ASCENDING)
+# @db2.close
+# @db2[:conversion].indexes.create_one(confirmation_name: Mongo::Index::ASCENDING)
+# @db2.close
+# @db2[:conversion].indexes.create_one(sku: Mongo::Index::ASCENDING)
+# @db2.close
+# @db2[:conversion].indexes.create_one(quantity: Mongo::Index::ASCENDING)
+# @db2.close
+# @db2[:conversion].indexes.create_one(click_date: Mongo::Index::ASCENDING)
+# @db2.close
+# @db2[:conversion].indexes.create_one(event_date: Mongo::Index::ASCENDING)
+# @db2.close
+# @db2[:conversion].indexes.create_one(conversion_date: Mongo::Index::ASCENDING)
+# @db2.close
+# @db2[:conversion].indexes.create_one(update_revenue_status: Mongo::Index::ASCENDING)
+# @db2.close
+# @db2[:conversion].indexes.create_one(track_event_category: Mongo::Index::ASCENDING)
+# @db2.close
+# @db2[:conversion].indexes.create_one(cookie_id: Mongo::Index::ASCENDING)
+# @db2.close
+# @db2[:conversion].indexes.create_one(track_event_action: Mongo::Index::ASCENDING)
+# @db2.close
+# @db2[:conversion].indexes.create_one(track_event_label: Mongo::Index::ASCENDING)
+# @db2.close
+# @db2[:conversion].indexes.create_one(track_event_value: Mongo::Index::ASCENDING)
+# @db2.close
+
+                      
+                      
+# @db2[:conversion].find('business_type' => nil).update_many('$set'=> { 'business_type' => ""})
+# @db2.close()
+# 
+# conversion = @db2[:conversion].find('business_type' => nil)
+# @db2.close()
+# #       
+# #       
+# concat conversion.count.to_i
+# concat "<br />".html_safe
+# concat conversion.first
+# 
+# concat "<br /><br /><br />".html_safe
+# 
+# event = @db2[:events].find('date' => { '$gte' => "2017-04-18 23:59:59" })
+# @db2.close()
+# 
+# concat event.count.to_i
+# concat "<br />".html_safe
+# concat event.first
+
+
+# cookies.delete :cookie_id, domain: 'adeqo.com'
+# cookies.delete :user_id, domain: 'adeqo.com'
+# cookies.delete :clicks_id, domain: 'adeqo.com'
+# cookies.delete :clicks_random_id, domain: 'adeqo.com'
+# cookies.delete :clicks_session_id, domain: 'adeqo.com'
+
+# concat request.cookies
+
+# @db[:conversion_rules].indexes.create_one(company_id: Mongo::Index::ASCENDING)
+# @db.close
+# @db[:conversion_rules].indexes.create_one(rules_id: Mongo::Index::ASCENDING)
+# @db.close
+# @db[:conversion_rules].indexes.create_one(rules_name: Mongo::Index::ASCENDING)
+# @db.close
+# @db[:conversion_rules].indexes.create_one(rules_type: Mongo::Index::ASCENDING)
+# @db.close
+# @db[:conversion_rules].indexes.create_one(rules_detail: Mongo::Index::ASCENDING)
+# @db.close
+# @db[:conversion_rules].indexes.create_one(date: Mongo::Index::ASCENDING)
+# @db.close
+
+# 
+
+@current_network = @db[:network].find({ '$or' => [ {'file_update_1' => 3},{'file_update_2' => 3},{'file_update_3' => 3},{'file_update_4' => 3} ]})
+@db.close
+
+if @current_network.count.to_i > 0
+	@current_network.each do |current_network_d|
+		concat current_network_d
+		concat "<br /><br />".html_safe
+	end
+end
+
+concat @current_network.count.to_i
+concat "<br /><br /><hr />".html_safe
+
+# db_name = "keyword_sogou_7"
+#                 
+# text = ".adeqo."
+# @url_keyword_count = @db[db_name].find({:visit_url => {'$regex' => '^((?!'+text+').)*$', '$options' => 'i'}, 'visit_url' => { '$ne' => "" }, 'cpc_plan_id' => 187571892})
+# @db.close
+# 
+# concat @url_keyword_count.count.to_i
+# concat @url_keyword_count.first
+# concat "<br /><br /><hr />".html_safe
+
+# @account_record = @db["sogou_report_account"].find()
+# concat @account_record.count.to_i
+# concat "<br /><br />".html_safe
+# 
+# @account_record = @db["sogou_report_campaign"].find()
+# concat @account_record.count.to_i
+# concat "<br /><br />".html_safe
+# 
+# 
+# @account_record = @db["sogou_report_adgroup"].find()
+# concat @account_record.count.to_i
+# concat "<br /><br />".html_safe
+# 
+# @account_record = @db["sogou_report_ad"].find()
+# concat @account_record.count.to_i
+# concat "<br /><br />".html_safe
+# 
+# @account_record = @db["sogou_report_keyword"].find()
+# concat @account_record.count.to_i                
+# concat "<br /><br />".html_safe
+#                 
+# concat "<br /><hr>".html_safe                
+
+
+# concat cookies[:test]
+   
+# def sogou_api(username,password,token,api_string)            
+    # @sogou_api = Savon.client(
+      # wsdl: "http://api.agent.sogou.com:8080/sem/sms/v1/"+api_string+"?wsdl",
+      # pretty_print_xml: true,
+      # log: true,
+      # env_namespace: :soap,
+      # namespaces: {"xmlns:common" => "http://api.sogou.com/sem/common/v1"},
+      # soap_header: { 
+        # "common:AuthHeader" => {
+          # 'common:token' => token,
+          # 'common:username' => username,
+          # 'common:password' => password
+        # }
+      # }
+    # )    
+  # end   
+                
+@user = @db[:network].find('type' => 'sogou')
+@db.close
+
+@user.each do |user|
+	concat user
+	concat "<br /><br />".html_safe
+	
+	@camp = @db["all_campaign"].find(network_id: user["id"].to_i)
+	@db.close
+	concat @camp.count.to_i 
+	concat "<br /><br />".html_safe
+	
+	db_name = "adgroup_sogou_"+user['id'].to_s
+	@adgroup = @sogou_db[db_name].find()
+	@sogou_db.close()
+	concat @adgroup.count.to_i 
+	concat "<br /><br />".html_safe
+	
+	db_name = "ad_sogou_"+user['id'].to_s
+	@ad = @sogou_db[db_name].find()
+	@sogou_db.close()
+	concat @ad.count.to_i 
+	concat "<br /><br />".html_safe
+	
+	db_name = "keyword_sogou_"+user['id'].to_s
+	@keyword = @sogou_db[db_name].find()
+	@sogou_db.close()
+	concat @keyword.count.to_i 
+	concat "<br /><br />".html_safe
+	
+	# if user["id"].to_i == 11
+# 		
+		# concat user["username"]
+		# concat "<br /><br />".html_safe
+		# concat user["password"]
+		# concat "<br /><br />".html_safe
+		# concat user["api_token"]
+		# concat "<br /><br />".html_safe
+# 		
+		# sogou_api(user["username"],user["password"],user["api_token"],"AccountService")
+	    # sogou_result = @sogou_api.call(:get_account_info)
+#     
+    	# concat sogou_result.header[:res_header]
+    	# concat sogou_result.header[:res_header][:rquota].to_i
+   	# end
+   	
+	# @account = @db["sogou_report_account"].find("network_id" => user['id'].to_i, 'report_date' => "2015-09-13")
+	# concat @account.count.to_i 
+	# concat "<br /><br />".html_safe
+# 	
+	# @campaign = @db["sogou_report_campaign"].find("network_id" => user['id'].to_i, 'report_date' => "2015-09-13")
+	# concat @campaign.count.to_i 
+	# concat "<br /><br />".html_safe
+# 	
+	# @ad = @db["sogou_report_ad"].find("network_id" => user['id'].to_i, 'report_date' => "2015-09-13")
+	# concat @ad.count.to_i 
+	# concat "<br /><br />".html_safe
+# 	
+# 	
+	# @record = @db["sogou_report_keyword"].find("network_id" => user['id'].to_i, 'avg_position' => { '$ne' => 0}, 'report_date' => "2015-09-13")
+	# concat @record.count.to_i 
+	# concat "<br /><br />".html_safe
+# 	
+	# @record2 = @db["sogou_report_adgroup"].find("network_id" => user['id'].to_i, 'avg_position' => { '$ne' => 0}, 'report_date' => "2015-09-13")
+	# concat @record2.count.to_i 
+	# concat "<br /><br />".html_safe
+# 	
+# 	
+# 	
+	# if @record.count.to_i > 0
+		# concat "keyword report<br />".html_safe
+		# @index = 0
+		# @record.each do |record|
+# 			
+			# if @index.to_i == 5
+				# break
+			# end
+			# concat record 
+			# concat "<br /><br />".html_safe
+# 			
+			# @index = @index + 1
+		# end
+# 	
+		# concat "<br /><hr><br />".html_safe
+# 		
+		# concat "adgroup report<br />".html_safe
+		# if @record2.count.to_i > 0
+			# @index = 0
+			# @record2.each do |record|
+# 				
+				# if @index.to_i == 5
+					# break
+				# end
+				# concat record 
+				# concat "<br /><br />".html_safe
+# 				
+				# @index = @index + 1
+			# end
+		# end
+		# concat "<br /><hr><br />".html_safe
+# 		
+		# concat "campaign report<br />".html_safe
+		# if @campaign.count.to_i > 0
+			# @index = 0
+			# @campaign.each do |record|
+# 				
+				# if @index.to_i == 5
+					# break
+				# end
+				# concat record 
+				# concat "<br /><br />".html_safe
+# 				
+				# @index = @index + 1
+			# end
+		# end
+# 		
+		# concat "account report<br />".html_safe
+		# if @account.count.to_i > 0
+			# @index = 0
+			# @account.each do |record|
+# 				
+				# if @index.to_i == 5
+					# break
+				# end
+				# concat record 
+				# concat "<br /><br />".html_safe
+# 				
+				# @index = @index + 1
+			# end
+		# end
+# 		
+	# end
+# 	
+# 	
+	
+	
+	
+	concat "<br /><br />".html_safe
+	concat "<hr /><hr />".html_safe
+end
+
+concat "<hr /><hr />".html_safe
+
+
+
+
+
+
+%>

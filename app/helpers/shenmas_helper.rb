@@ -1,0 +1,2 @@
+module ShenmasHelper
+end

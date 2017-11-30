@@ -1,0 +1,23 @@
+<h1>Listing baidus</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @baidus.each do |baidu| %>
+      <tr>
+        <td><%= link_to 'Show', baidu %></td>
+        <td><%= link_to 'Edit', edit_baidu_path(baidu) %></td>
+        <td><%= link_to 'Destroy', baidu, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Baidu', new_baidu_path %>
